@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "bun --hot index.ts",
     "start": "bun index.ts",
+    "preview-email": "bun scripts/preview-email.ts",
     "register-webhook": "bun scripts/register-webhook.ts"
   },
   "devDependencies": {
