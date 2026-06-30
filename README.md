@@ -11,25 +11,39 @@ A simple [Bun](https://bun.com) worker that receives [Luma webhooks](https://alh
 
 ## Setup
 
-1. Install dependencies:
+### 1. Authenticate with GitHub Packages
 
-```bash
-export GITHUB_TOKEN=ghp_your_token   # needs read:packages — see SDK install guide
-bun install
-```
+`@alhwyn/luma` is published to [GitHub Packages](https://github.com/Alhwyn/luma/packages). You need a GitHub PAT with **`read:packages`**.
 
-This installs [`@alhwyn/luma`](https://github.com/Alhwyn/luma) from [GitHub Packages](https://github.com/Alhwyn/luma/packages). The `.npmrc` in this repo routes the `@alhwyn` scope there. See the [SDK install guide](https://alhwyn.mintlify.site/install) for details.
-
-2. Copy environment variables:
+1. Create a token at [github.com/settings/tokens](https://github.com/settings/tokens) with the `read:packages` scope
+2. If your org uses SSO, authorize the token for that org
+3. Copy environment variables and set your token:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Fill in `.env`:
+Add to `.env`:
+
+```bash
+GITHUB_TOKEN=ghp_your_token
+```
+
+This repo includes `.npmrc` and `bunfig.toml` so Bun routes the `@alhwyn` scope to GitHub Packages. Bun loads `.env` automatically.
+
+### 2. Install dependencies
+
+```bash
+bun install
+```
+
+Or reopen the project in Cursor — the `sessionStart` hook runs `.cursor/hooks/setup-deps.sh`, which checks for `GITHUB_TOKEN` and installs dependencies.
+
+### 3. Fill in `.env`
 
 | Variable | Description |
 | --- | --- |
+| `GITHUB_TOKEN` | GitHub PAT with `read:packages` (required for `bun install`) |
 | `LUMA_API_KEY` | From [Luma API keys](https://luma.com/calendar/manage/api-keys) |
 | `LUMA_WEBHOOK_SECRET` | From webhook registration (see below) |
 | `LUMA_WEBHOOK_EVENT_TYPES` | Comma-separated events, e.g. `guest.updated,guest.registered` |
@@ -37,6 +51,16 @@ cp .env.example .env
 | `RESEND_FROM_EMAIL` | Verified sender address in Resend |
 | `WEBHOOK_URL` | Public URL for `/webhooks/luma` (for registration script) |
 | `PORT` | Server port (default `3000`) |
+
+### Troubleshooting `401 Unauthorized`
+
+| Symptom | Fix |
+| --- | --- |
+| 401 on `bun install` | Set `GITHUB_TOKEN` in `.env` with `read:packages` |
+| 401 with token set | Token expired or missing `read:packages`; authorize for SSO org |
+| Version not found | Package not published — check [GitHub Packages](https://github.com/Alhwyn/luma/packages) |
+
+See the [SDK install guide](https://alhwyn.mintlify.site/install) for more details.
 
 ## Run locally
 
