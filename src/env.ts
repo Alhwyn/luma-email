@@ -8,7 +8,8 @@ function requireEnv(name: string): string {
 
 export const env = {
   port: Number(process.env.PORT ?? 3000),
-  lumaWebhookSecret: () => requireEnv("LUMA_WEBHOOK_SECRET"),
+  lumaApiKey: () => requireEnv("LUMA_API_KEY"),
+  lumaEventId: () => requireEnv("LUMA_EVENT_ID"),
   resendApiKey: () => requireEnv("RESEND_API_KEY"),
   emailFrom: () => requireEnv("RESEND_FROM_EMAIL"),
 };

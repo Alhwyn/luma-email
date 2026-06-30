@@ -1,12 +1,6 @@
-import { WebhookInboundClient } from "@alhwyn/luma";
 import { env } from "./src/env";
 import { handleLumaEvent } from "./src/handle-event";
-
-function getWebhookClient(): WebhookInboundClient {
-  return new WebhookInboundClient({
-    secret: env.lumaWebhookSecret(),
-  });
-}
+import { verifyWebhook } from "./src/luma-webhook";
 
 Bun.serve({
   port: env.port,
@@ -18,7 +12,7 @@ Bun.serve({
       POST: async (req) => {
         try {
           const body = await req.text();
-          const event = getWebhookClient().verify({
+          const event = await verifyWebhook({
             body,
             headers: req.headers,
           });

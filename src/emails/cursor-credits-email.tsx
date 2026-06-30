@@ -7,48 +7,79 @@ import {
   Hr,
   Html,
   Img,
-  Row,
-  Column,
   Section,
   Text,
 } from "react-email";
 
 const CURSOR_URL = "https://cursor.com";
 export const HERO_CONTENT_ID = "cursor-credits-hero";
-export const LOGO_CONTENT_ID = "cursor-logo";
+export const LOGO_LIGHT_CONTENT_ID = "cursor-lockup-light";
+export const LOGO_DARK_CONTENT_ID = "cursor-lockup-dark";
 
 export interface CursorCreditsEmailProps {
-  name: string;
+  eventName: string;
+  /** Use static image paths for React Email preview; cid attachments when sending. */
+  preview?: boolean;
 }
 
-export function CursorCreditsEmail({ name }: CursorCreditsEmailProps) {
+function logoLightSrc(preview: boolean): string {
+  return preview ? "/static/cursor-lockup-light.png" : `cid:${LOGO_LIGHT_CONTENT_ID}`;
+}
+
+function logoDarkSrc(preview: boolean): string {
+  return preview ? "/static/cursor-lockup-dark.png" : `cid:${LOGO_DARK_CONTENT_ID}`;
+}
+
+function heroSrc(preview: boolean): string {
+  return preview ? "/static/cursor-credits-hero.jpg" : `cid:${HERO_CONTENT_ID}`;
+}
+
+const darkModeStyles = `
+  .logo-light { display: block !important; }
+  .logo-dark { display: none !important; max-height: 0; overflow: hidden; mso-hide: all; }
+  @media (prefers-color-scheme: dark) {
+    .logo-light { display: none !important; max-height: 0 !important; overflow: hidden !important; mso-hide: all !important; }
+    .logo-dark { display: block !important; max-height: none !important; overflow: visible !important; }
+    .email-body { background-color: #171717 !important; }
+    .email-container { background-color: #171717 !important; }
+    .email-heading { color: #fafafa !important; }
+    .email-paragraph { color: #d4d4d8 !important; }
+    .email-footer { color: #a1a1aa !important; }
+    .email-divider { border-color: #3f3f46 !important; }
+  }
+`;
+
+export function CursorCreditsEmail({ eventName, preview = false }: CursorCreditsEmailProps) {
   return (
     <Html lang="en">
       <Head>
         <title>Your Cursor credits</title>
+        <style>{darkModeStyles}</style>
       </Head>
-      <Body style={main}>
-        <Container style={container}>
+      <Body style={main} className="email-body">
+        <Container style={container} className="email-container">
           <Section style={logoSection}>
-            <Row>
-              <Column style={logoImageColumn}>
-                <Img
-                  src={`cid:${LOGO_CONTENT_ID}`}
-                  alt="Cursor"
-                  width={28}
-                  height={28}
-                  style={logoImage}
-                />
-              </Column>
-              <Column style={logoTextColumn}>
-                <Text style={logoText}>CURSOR</Text>
-              </Column>
-            </Row>
+            <Img
+              src={logoLightSrc(preview)}
+              alt="Cursor"
+              width={120}
+              height={29}
+              className="logo-light"
+              style={lockupImage}
+            />
+            <Img
+              src={logoDarkSrc(preview)}
+              alt="Cursor"
+              width={120}
+              height={29}
+              className="logo-dark"
+              style={lockupImage}
+            />
           </Section>
 
           <Section style={heroSection}>
             <Img
-              src={`cid:${HERO_CONTENT_ID}`}
+              src={heroSrc(preview)}
               alt="Cursor logo on dark background"
               width={560}
               style={heroImage}
@@ -56,24 +87,27 @@ export function CursorCreditsEmail({ name }: CursorCreditsEmailProps) {
           </Section>
 
           <Section style={headingSection}>
-            <Heading style={heading}>Here is your Cursor credits</Heading>
+            <Heading style={heading} className="email-heading">
+              Thanks for joining {eventName}
+            </Heading>
           </Section>
 
           <Section style={paragraphSection}>
-            <Text style={paragraph}>
-              Hi {name}, your credits are ready in your account — available to spend on usage
-              beyond your plan&apos;s included limits.
+            <Text style={paragraph} className="email-paragraph">
+              Here are your Cursor credits.
             </Text>
           </Section>
 
           <Section style={buttonSection}>
             <Button href={CURSOR_URL} style={button}>
-              AGM →
+              Redeem
             </Button>
           </Section>
 
-          <Hr style={divider} />
-          <Text style={footer}>Keep shipping</Text>
+          <Hr style={divider} className="email-divider" />
+          <Text style={footer} className="email-footer">
+            Keep shipping
+          </Text>
         </Container>
       </Body>
     </Html>
@@ -83,7 +117,7 @@ export function CursorCreditsEmail({ name }: CursorCreditsEmailProps) {
 const main = {
   margin: 0,
   padding: 0,
-  backgroundColor: "#ffffff",
+  backgroundColor: "#fcfcf9",
   fontFamily: "Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif",
   color: "#171717",
 } as const;
@@ -98,30 +132,11 @@ const logoSection = {
   padding: "0 0 28px",
 } as const;
 
-const logoImageColumn = {
-  width: "28px",
-  paddingRight: "10px",
-  verticalAlign: "middle",
-} as const;
-
-const logoTextColumn = {
-  verticalAlign: "middle",
-} as const;
-
-const logoImage = {
+const lockupImage = {
   display: "block",
   border: 0,
   outline: "none",
   textDecoration: "none",
-} as const;
-
-const logoText = {
-  margin: 0,
-  fontSize: "18px",
-  lineHeight: 1,
-  fontWeight: 700,
-  letterSpacing: "0.08em",
-  color: "#171717",
 } as const;
 
 const heroSection = {
@@ -191,3 +206,8 @@ const footer = {
 } as const;
 
 export default CursorCreditsEmail;
+
+CursorCreditsEmail.PreviewProps = {
+  eventName: "Cursor Victoria Meetup",
+  preview: true,
+} satisfies CursorCreditsEmailProps;

@@ -20,5 +20,4 @@ console.log("Webhook registered:");
 console.log("  ID:", endpoint.api_id);
 console.log("  URL:", endpoint.url);
 console.log("  Events:", endpoint.event_types.join(", "));
-console.log("\nSave this secret as LUMA_WEBHOOK_SECRET:");
-console.log(endpoint.secret);
+console.log("\nThe worker fetches the signing secret from Luma automatically via LUMA_API_KEY.");

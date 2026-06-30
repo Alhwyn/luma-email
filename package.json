@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "bun scripts/dev.ts",
     "start": "bun index.ts",
+    "tunnel": "cloudflared tunnel run webhook-automator",
     "register-webhook": "bun scripts/register-webhook.ts"
   },
   "devDependencies": {
+    "@clack/prompts": "^1.6.0",
     "@types/bun": "latest",
     "@types/react": "^19.0.0"
   },
