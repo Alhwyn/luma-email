@@ -1,6 +1,5 @@
 # dependencies (bun install)
 node_modules
-vendor/luma
 
 # output
 out

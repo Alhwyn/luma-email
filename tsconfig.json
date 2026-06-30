@@ -8,9 +8,6 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "types": ["bun"],
-    "paths": {
-      "@alhwyn/luma": ["./vendor/luma/src/index.ts"]
-    },
 
     // Bundler mode
     "moduleResolution": "bundler",

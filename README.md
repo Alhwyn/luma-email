@@ -11,17 +11,13 @@ A simple [Bun](https://bun.com) worker that receives [Luma webhooks](https://alh
 
 ## Setup
 
-1. Install dependencies (this also clones the Luma SDK into `vendor/luma`):
+1. Install dependencies:
 
 ```bash
 bun install
 ```
 
-If the SDK clone fails, run:
-
-```bash
-bun run setup
-```
+This installs [`@alhwyn/luma`](https://github.com/Alhwyn/luma) from GitHub. You can also install from [GitHub Packages](https://github.com/Alhwyn/luma/packages) — see the [SDK install guide](https://alhwyn.mintlify.site/install).
 
 2. Copy environment variables:
 
@@ -60,10 +56,6 @@ WEBHOOK_URL=https://your-domain.com/webhooks/luma bun run register-webhook
 Save the printed `secret` as `LUMA_WEBHOOK_SECRET` in `.env`.
 
 See the [SDK webhook docs](https://alhwyn.mintlify.site/webhooks/create) for details.
-
-## SDK install note
-
-`@alhwyn/luma` is published to [GitHub Packages](https://github.com/Alhwyn/luma). This project vendors it via `bun run setup` so you do not need GitHub Packages auth. To use the published package instead, see [Install](https://alhwyn.mintlify.site/install).
 
 ## Docs
 
