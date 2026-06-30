@@ -3,10 +3,20 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "setup": "bun scripts/setup-luma-sdk.ts",
+    "postinstall": "bun scripts/setup-luma-sdk.ts",
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts",
+    "register-webhook": "bun scripts/register-webhook.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "resend": "^6.16.0"
   }
 }
