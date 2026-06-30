@@ -20,7 +20,7 @@ export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<voi
       const name = guestName(event);
       await sendEmail({
         to: event.data.user_email,
-        subject: "Here is your Cursor credits",
+        subject: "Thanks for joining Cursor Victoria Meetup — here are your Cursor credits",
         html: await renderCursorCreditsEmailHtml({ name }),
       });
       return;
@@ -35,7 +35,7 @@ export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<voi
       const name = guestName(event);
       await sendEmail({
         to: event.data.user_email,
-        subject: "Here is your Cursor credits",
+        subject: "Thanks for joining Cursor Victoria Meetup — here are your Cursor credits",
         html: await renderCursorCreditsEmailHtml({ name }),
       });
       return;
