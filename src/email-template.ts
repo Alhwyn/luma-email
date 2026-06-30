@@ -1,10 +1,11 @@
-const LOGO_CONTENT_ID = "resend-logo";
+const HERO_CONTENT_ID = "cursor-credits-hero";
+const CURSOR_URL = "https://cursor.com";
 
-export const emailLogoAttachment = {
-  path: `${import.meta.dir}/../assets/email/resend-logo.png`,
-  filename: "resend-logo.png",
+export const emailHeroAttachment = {
+  path: `${import.meta.dir}/../assets/email/cursor-credits-hero.png`,
+  filename: "cursor-credits-hero.png",
   contentType: "image/png",
-  contentId: LOGO_CONTENT_ID,
+  contentId: HERO_CONTENT_ID,
 } as const;
 
 function escapeHtml(text: string): string {
@@ -15,19 +16,15 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export function renderEmailHtml(params: {
-  greeting: string;
-  body: string;
-}): string {
-  const greeting = escapeHtml(params.greeting);
-  const body = escapeHtml(params.body);
+export function renderCursorCreditsEmailHtml(params: { name: string }): string {
+  const name = escapeHtml(params.name);
 
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Event update</title>
+    <title>Your Cursor credits</title>
   </head>
   <body style="margin:0;padding:0;background-color:#000000;font-family:Inter,Arial,sans-serif;color:#f4f4f5;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#000000;padding:32px 16px;">
@@ -36,34 +33,28 @@ export function renderEmailHtml(params: {
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:560px;">
             <tr>
               <td align="center" style="padding:0 0 24px;">
-                <table role="presentation" cellspacing="0" cellpadding="0" style="background-color:#1f1f23;border-radius:16px;border:1px solid #2f2f35;">
-                  <tr>
-                    <td align="center" style="padding:28px 40px;">
-                      <img
-                        src="cid:${LOGO_CONTENT_ID}"
-                        alt="Resend"
-                        width="72"
-                        height="72"
-                        style="display:block;border:0;outline:none;text-decoration:none;"
-                      />
-                    </td>
-                  </tr>
-                </table>
+                <img
+                  src="cid:${HERO_CONTENT_ID}"
+                  alt="Cursor credits"
+                  width="560"
+                  style="display:block;width:100%;max-width:560px;height:auto;border:0;border-radius:16px;outline:none;text-decoration:none;"
+                />
               </td>
             </tr>
             <tr>
-              <td style="background-color:#111113;border-radius:16px;border:1px solid #27272a;padding:32px 28px;">
-                <p style="margin:0 0 16px;font-size:18px;line-height:1.5;font-weight:600;color:#fafafa;">
-                  ${greeting}
+              <td style="background-color:#111113;border-radius:16px;border:1px solid #27272a;padding:32px 28px;text-align:center;">
+                <p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:#a1a1aa;">
+                  Hi ${name},
                 </p>
-                <p style="margin:0;font-size:16px;line-height:1.6;color:#d4d4d8;">
-                  ${body}
+                <p style="margin:0 0 28px;font-size:22px;line-height:1.4;font-weight:600;color:#fafafa;">
+                  Here is your Cursor credits
                 </p>
-              </td>
-            </tr>
-            <tr>
-              <td align="center" style="padding:24px 0 0;font-size:12px;line-height:1.5;color:#71717a;">
-                Sent with Resend
+                <a
+                  href="${CURSOR_URL}"
+                  style="display:inline-block;background-color:#fafafa;color:#09090b;font-size:15px;font-weight:600;line-height:1;text-decoration:none;padding:14px 32px;border-radius:999px;"
+                >
+                  AGM
+                </a>
               </td>
             </tr>
           </table>

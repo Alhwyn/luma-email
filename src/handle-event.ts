@@ -1,6 +1,6 @@
 import type { UnwrappedWebhookEvent } from "@alhwyn/luma";
 import { sendEmail } from "./email";
-import { renderEmailHtml } from "./email-template";
+import { renderCursorCreditsEmailHtml } from "./email-template";
 
 function guestName(event: UnwrappedWebhookEvent): string {
   if (event.type !== "guest.registered" && event.type !== "guest.updated") {
@@ -20,11 +20,8 @@ export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<voi
       const name = guestName(event);
       await sendEmail({
         to: event.data.user_email,
-        subject: "You're registered!",
-        html: renderEmailHtml({
-          greeting: `Hi ${name},`,
-          body: "Thanks for registering. We look forward to seeing you at the event.",
-        }),
+        subject: "Here is your Cursor credits",
+        html: renderCursorCreditsEmailHtml({ name }),
       });
       return;
     }
@@ -38,11 +35,8 @@ export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<voi
       const name = guestName(event);
       await sendEmail({
         to: event.data.user_email,
-        subject: "Welcome — you're checked in!",
-        html: renderEmailHtml({
-          greeting: `Hi ${name},`,
-          body: "You're checked in. Enjoy the event!",
-        }),
+        subject: "Here is your Cursor credits",
+        html: renderCursorCreditsEmailHtml({ name }),
       });
       return;
     }
