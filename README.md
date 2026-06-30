@@ -46,6 +46,16 @@ bun run dev
 
 The server starts at `http://localhost:3000`.
 
+## Preview emails
+
+Emails are built with [React Email](https://react.email/docs/components/html). To preview locally:
+
+```bash
+bun run email:dev
+```
+
+Opens the React Email dev server at `http://localhost:3000` with live reload.
+
 ## Register a Luma webhook
 
 Expose your worker publicly (for example with [ngrok](https://ngrok.com)), then:

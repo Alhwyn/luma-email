@@ -6,17 +6,20 @@
   "scripts": {
     "dev": "bun --hot index.ts",
     "start": "bun index.ts",
-    "preview-email": "bun scripts/preview-email.ts",
+    "email:dev": "email dev --dir src/emails",
     "register-webhook": "bun scripts/register-webhook.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/react": "^19.0.0"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@alhwyn/luma": "^0.1.1",
+    "react": "^19.0.0",
+    "react-email": "^6.0.0",
     "resend": "^6.16.0"
   }
 }
