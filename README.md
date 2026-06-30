@@ -13,7 +13,7 @@ A simple [Bun](https://bun.com) worker that receives [Luma webhooks](https://alh
 
 ### 1. Install dependencies
 
-[`@alhwyn/luma`](https://www.npmjs.com/package/@alhwyn/luma) is on the public npm registry — no GitHub token needed.
+[`@alhwyn/luma`](https://github.com/Alhwyn/luma) installs from the public GitHub repo — no npm or GitHub token required.
 
 ```bash
 bun install
