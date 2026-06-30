@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@alhwyn/luma": "github:Alhwyn/luma",
+    "@react-email/components": "^1.0.12",
+    "@react-email/ui": "^6.6.5",
     "react": "^19.0.0",
     "react-email": "^6.0.0",
     "resend": "^6.16.0"
