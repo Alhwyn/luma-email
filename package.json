@@ -3,10 +3,20 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts",
+    "preview-email": "bun scripts/preview-email.ts",
+    "register-webhook": "bun scripts/register-webhook.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@alhwyn/luma": "^0.1.1",
+    "resend": "^6.16.0"
   }
 }
