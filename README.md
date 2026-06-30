@@ -14,10 +14,11 @@ A simple [Bun](https://bun.com) worker that receives [Luma webhooks](https://alh
 1. Install dependencies:
 
 ```bash
+export GITHUB_TOKEN=ghp_your_token   # needs read:packages — see SDK install guide
 bun install
 ```
 
-This installs [`@alhwyn/luma`](https://github.com/Alhwyn/luma) from GitHub. You can also install from [GitHub Packages](https://github.com/Alhwyn/luma/packages) — see the [SDK install guide](https://alhwyn.mintlify.site/install).
+This installs [`@alhwyn/luma`](https://github.com/Alhwyn/luma) from [GitHub Packages](https://github.com/Alhwyn/luma/packages). The `.npmrc` in this repo routes the `@alhwyn` scope there. See the [SDK install guide](https://alhwyn.mintlify.site/install) for details.
 
 2. Copy environment variables:
 

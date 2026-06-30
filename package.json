@@ -15,10 +15,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@alhwyn/luma": "github:Alhwyn/luma",
+    "@alhwyn/luma": "^0.1.1",
     "resend": "^6.16.0"
-  },
-  "overrides": {
-    "@alhwyn/luma": "github:Alhwyn/luma"
   }
 }
