@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { emailLogoAttachment } from "./email-template";
 import { env } from "./env";
 
 let resend: Resend | undefined;
@@ -20,6 +21,7 @@ export async function sendEmail(params: {
     to: params.to,
     subject: params.subject,
     html: params.html,
+    attachments: [emailLogoAttachment],
   });
 
   if (error) {
