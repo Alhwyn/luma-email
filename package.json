@@ -4,9 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --hot index.ts",
+    "dev": "bun scripts/dev.ts",
     "start": "bun index.ts",
-    "email:dev": "email dev --dir src/emails",
     "register-webhook": "bun scripts/register-webhook.ts"
   },
   "devDependencies": {

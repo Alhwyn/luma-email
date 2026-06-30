@@ -38,23 +38,13 @@ cp .env.example .env
 | `WEBHOOK_URL` | Public URL for `/webhooks/luma` (for registration script) |
 | `PORT` | Server port (default `3000`) |
 
-## Run the worker
+## Run locally
 
 ```bash
 bun run dev
 ```
 
-The server starts at `http://localhost:3000`.
-
-## Preview emails
-
-Emails are built with [React Email](https://react.email/docs/components/html). To preview locally:
-
-```bash
-bun run email:dev
-```
-
-Opens the React Email dev server at `http://localhost:3000` with live reload.
+Starts the webhook worker at `http://localhost:3000` and the [React Email](https://react.email/docs/components/html) preview at `http://localhost:3001`.
 
 ## Register a Luma webhook
 

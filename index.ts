@@ -40,4 +40,3 @@ Bun.serve({
   },
 });
 
-console.log(`Luma email worker listening on http://localhost:${env.port}`);
