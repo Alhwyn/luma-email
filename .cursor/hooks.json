@@ -5,6 +5,32 @@
       {
         "command": ".cursor/hooks/setup-deps.sh"
       }
+    ],
+    "beforeReadFile": [
+      {
+        "command": ".cursor/hooks/protect-env.py",
+        "failClosed": true
+      }
+    ],
+    "beforeTabFileRead": [
+      {
+        "command": ".cursor/hooks/protect-env.py",
+        "failClosed": true
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": ".cursor/hooks/protect-env.py",
+        "matcher": "Read|Write|StrReplace|Delete|Grep",
+        "failClosed": true
+      }
+    ],
+    "beforeShellExecution": [
+      {
+        "command": ".cursor/hooks/protect-env.py",
+        "matcher": "\\.env",
+        "failClosed": true
+      }
     ]
   }
 }

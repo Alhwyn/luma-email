@@ -34,6 +34,32 @@ export const emailAttachments = [
   emailHeroAttachment,
 ] as const;
 
+type EmailAttachmentDef = (typeof emailAttachments)[number];
+
+let cachedAttachments: Promise<
+  {
+    filename: string;
+    content: Buffer;
+    contentType: string;
+    contentId: string;
+  }[]
+> | undefined;
+
+export async function getEmailAttachments() {
+  if (!cachedAttachments) {
+    cachedAttachments = Promise.all(
+      emailAttachments.map(async (attachment: EmailAttachmentDef) => ({
+        filename: attachment.filename,
+        content: Buffer.from(await Bun.file(attachment.path).arrayBuffer()),
+        contentType: attachment.contentType,
+        contentId: attachment.contentId,
+      })),
+    );
+  }
+
+  return cachedAttachments;
+}
+
 export async function renderCursorCreditsEmailHtml(params: { name: string }): Promise<string> {
   return render(createElement(CursorCreditsEmail, { name: params.name, preview: false }));
 }

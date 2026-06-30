@@ -5,9 +5,10 @@ A simple [Bun](https://bun.com) worker that receives [Luma webhooks](https://alh
 ## What it does
 
 - `POST /webhooks/luma` — verifies signed Luma webhook payloads and sends email
-- `guest.registered` — sends a registration confirmation email
-- `guest.updated` (check-in) — sends a welcome email when a guest is checked in
+- `guest.updated` (check-in) — sends credits email when a guest is checked in (`event_tickets[].checked_in_at` is set)
 - `GET /health` — health check
+
+Which Luma calendar event to automate is configured via `LUMA_EVENT_ID` (set by `bun run dev`). Email sends on `guest.updated` when the guest checks in for that event.
 
 ## Setup
 
@@ -30,8 +31,8 @@ cp .env.example .env
 | Variable | Description |
 | --- | --- |
 | `LUMA_API_KEY` | From [Luma API keys](https://luma.com/calendar/manage/api-keys) |
-| `LUMA_WEBHOOK_SECRET` | From webhook registration (see below) |
-| `LUMA_WEBHOOK_EVENT_TYPES` | Comma-separated events, e.g. `guest.updated,guest.registered` |
+| `LUMA_WEBHOOK_EVENT_TYPES` | Comma-separated events Luma delivers to your webhook, e.g. `guest.updated` |
+| `LUMA_EVENT_ID` | Luma calendar event to automate (set by `bun run dev`) |
 | `RESEND_API_KEY` | From [Resend](https://resend.com/api-keys) |
 | `RESEND_FROM_EMAIL` | Verified sender address in Resend |
 | `WEBHOOK_URL` | Public URL for `/webhooks/luma` (for registration script) |
@@ -43,6 +44,8 @@ cp .env.example .env
 bun run dev
 ```
 
+On every `bun run dev`, fetches your Luma calendar events from the API and lets you pick which one to automate. Credits email sends on guest check-in (`guest.updated` with `checked_in_at`) for that event only. Pass `--skip-prompt` to skip.
+
 Starts the webhook worker at `http://localhost:3000` and the [React Email](https://react.email/docs/components/html) preview at `http://localhost:3001`.
 
 ## Register a Luma webhook
@@ -53,7 +56,7 @@ Expose your worker publicly (for example with [ngrok](https://ngrok.com)), then:
 WEBHOOK_URL=https://your-domain.com/webhooks/luma bun run register-webhook
 ```
 
-Save the printed `secret` as `LUMA_WEBHOOK_SECRET` in `.env`.
+The worker loads the webhook signing secret from Luma automatically using `LUMA_API_KEY`. Set `WEBHOOK_URL` in `.env` if you have more than one active webhook.
 
 See the [SDK webhook docs](https://alhwyn.mintlify.site/webhooks/create) for details.
 

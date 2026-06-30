@@ -10,6 +10,7 @@
     "register-webhook": "bun scripts/register-webhook.ts"
   },
   "devDependencies": {
+    "@clack/prompts": "^1.6.0",
     "@types/bun": "latest",
     "@types/react": "^19.0.0"
   },
