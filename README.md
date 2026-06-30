@@ -60,6 +60,12 @@ The worker loads the webhook signing secret from Luma automatically using `LUMA_
 
 See the [SDK webhook docs](https://alhwyn.mintlify.site/webhooks/create) for details.
 
+## Migration notes
+
+### `guest.registered` removed
+
+Earlier versions sent a registration confirmation on `guest.registered`. This worker now only sends the credits email on `guest.updated` when a guest checks in (`event_tickets[].checked_in_at` is set). If you still have `guest.registered` in `LUMA_WEBHOOK_EVENT_TYPES`, you can remove it from your Luma webhook and `.env` — the handler ignores it.
+
 ## Docs
 
 - [Unofficial Luma SDK](https://alhwyn.mintlify.site/introduction)

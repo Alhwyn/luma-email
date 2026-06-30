@@ -17,7 +17,7 @@ export const LOGO_LIGHT_CONTENT_ID = "cursor-lockup-light";
 export const LOGO_DARK_CONTENT_ID = "cursor-lockup-dark";
 
 export interface CursorCreditsEmailProps {
-  name: string;
+  eventName: string;
   /** Use static image paths for React Email preview; cid attachments when sending. */
   preview?: boolean;
 }
@@ -49,7 +49,7 @@ const darkModeStyles = `
   }
 `;
 
-export function CursorCreditsEmail({ name, preview = false }: CursorCreditsEmailProps) {
+export function CursorCreditsEmail({ eventName, preview = false }: CursorCreditsEmailProps) {
   return (
     <Html lang="en">
       <Head>
@@ -88,7 +88,7 @@ export function CursorCreditsEmail({ name, preview = false }: CursorCreditsEmail
 
           <Section style={headingSection}>
             <Heading style={heading} className="email-heading">
-              Thanks for joining Cursor Victoria Meetup
+              Thanks for joining {eventName}
             </Heading>
           </Section>
 
@@ -208,6 +208,6 @@ const footer = {
 export default CursorCreditsEmail;
 
 CursorCreditsEmail.PreviewProps = {
-  name: "Alex",
+  eventName: "Cursor Victoria Meetup",
   preview: true,
 } satisfies CursorCreditsEmailProps;

@@ -3,21 +3,9 @@ import { sendEmail } from "./email";
 import { renderCursorCreditsEmailHtml } from "./email-template";
 import { env } from "./env";
 
-function guestName(
-  event: Extract<UnwrappedWebhookEvent, { type: "guest.updated" }>,
-): string {
-  return (
-    event.data.user_name ??
-    ([event.data.user_first_name, event.data.user_last_name].filter(Boolean).join(" ") ||
-      "there")
-  );
-}
+type GuestUpdatedEvent = Extract<UnwrappedWebhookEvent, { type: "guest.updated" }>;
 
-export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<void> {
-  if (event.type !== "guest.updated") {
-    return;
-  }
-
+async function handleGuestUpdated(event: GuestUpdatedEvent): Promise<void> {
   if (event.data.event.id !== env.lumaEventId()) {
     return;
   }
@@ -27,10 +15,31 @@ export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<voi
     return;
   }
 
-  const name = guestName(event);
+  const eventName = event.data.event.name;
+
   await sendEmail({
     to: event.data.user_email,
-    subject: "Thanks for joining Cursor Victoria Meetup — here are your Cursor credits",
-    html: await renderCursorCreditsEmailHtml({ name }),
+    subject: `Thanks for joining ${eventName} — here are your Cursor credits`,
+    html: await renderCursorCreditsEmailHtml({ eventName }),
   });
+}
+
+export async function handleLumaEvent(event: UnwrappedWebhookEvent): Promise<void> {
+  switch (event.type) {
+    case "guest.updated":
+      await handleGuestUpdated(event);
+      return;
+    case "calendar.event.added":
+    case "calendar.person.subscribed":
+    case "event.canceled":
+    case "event.created":
+    case "event.updated":
+    case "guest.registered":
+    case "ticket.registered":
+      return;
+    default: {
+      const _exhaustive: never = event;
+      return _exhaustive;
+    }
+  }
 }
