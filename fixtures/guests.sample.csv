@@ -1,0 +1,5 @@
+guest_id,name,first_name,last_name,email,What is your LinkedIn profile?,What is your GitHub username?,What is your X (Twitter) handle?,What company do you work for?,Where are you based?
+gst-fixture-001,Ada Example,Ada,Example,ada@example.com,https://www.linkedin.com/in/ada-example,ada-example,https://x.com/ada_example,Example Labs,San Francisco
+gst-fixture-002,Blake Sample,Blake,Sample,blake@example.com,,blake-dev,@blake_sample,Independent,Berlin
+gst-fixture-003,Casey NoHandles,Casey,NoHandles,casey@example.com,,,,Acme Robotics,"Toronto, ON"
+gst-fixture-004,Dana LinkedOnly,Dana,LinkedOnly,dana@example.com,linkedin.com/in/dana-linked,,,Northwind,Remote

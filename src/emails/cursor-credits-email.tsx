@@ -18,6 +18,8 @@ export const LOGO_DARK_CONTENT_ID = "cursor-lockup-dark";
 
 export interface CursorCreditsEmailProps {
   eventName: string;
+  /** Optional guest profile photo URL (e.g. from enriched CSV `x_avatar_url`). */
+  guestAvatarUrl?: string;
   /** Use static image paths for React Email preview; cid attachments when sending. */
   preview?: boolean;
 }
@@ -49,7 +51,11 @@ const darkModeStyles = `
   }
 `;
 
-export function CursorCreditsEmail({ eventName, preview = false }: CursorCreditsEmailProps) {
+export function CursorCreditsEmail({
+  eventName,
+  guestAvatarUrl,
+  preview = false,
+}: CursorCreditsEmailProps) {
   return (
     <Html lang="en">
       <Head>
@@ -85,6 +91,18 @@ export function CursorCreditsEmail({ eventName, preview = false }: CursorCredits
               style={heroImage}
             />
           </Section>
+
+          {guestAvatarUrl ? (
+            <Section style={avatarSection}>
+              <Img
+                src={guestAvatarUrl}
+                alt=""
+                width={64}
+                height={64}
+                style={guestAvatar}
+              />
+            </Section>
+          ) : null}
 
           <Section style={headingSection}>
             <Heading style={heading} className="email-heading">
@@ -154,6 +172,19 @@ const heroImage = {
   textDecoration: "none",
 } as const;
 
+const avatarSection = {
+  padding: "0 0 16px",
+} as const;
+
+const guestAvatar = {
+  display: "block",
+  width: "64px",
+  height: "64px",
+  borderRadius: "50%",
+  border: 0,
+  outline: "none",
+} as const;
+
 const headingSection = {
   padding: "0 0 16px",
 } as const;
@@ -209,5 +240,6 @@ export default CursorCreditsEmail;
 
 CursorCreditsEmail.PreviewProps = {
   eventName: "Cursor Victoria Meetup",
+  guestAvatarUrl: "https://unavatar.io/x/cursor_ai?fallback=false",
   preview: true,
 } satisfies CursorCreditsEmailProps;
