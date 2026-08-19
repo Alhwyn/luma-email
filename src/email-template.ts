@@ -62,10 +62,12 @@ export async function getEmailAttachments() {
 
 export async function renderCursorCreditsEmailHtml(params: {
   eventName: string;
+  guestAvatarUrl?: string;
 }): Promise<string> {
   return render(
     createElement(CursorCreditsEmail, {
       eventName: params.eventName,
+      guestAvatarUrl: params.guestAvatarUrl,
       preview: false,
     }),
   );

@@ -32,3 +32,12 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
+
+# Real Luma guest exports + enriched outputs (may contain PII)
+/data/**
+!/data/.gitkeep
+
+# Downloaded guest avatars (binaries)
+/avatars/**
+!/avatars/.gitkeep
+*.enriched.csv
