@@ -1,0 +1,5 @@
+guest_id,name,first_name,email,approval_status,ticket_name,company,Where are you based?,"Are you traveling to Victoria, BC Canada for this?",x_avatar_path,linkedin_avatar_path,avatar_source
+gst_sample_001,Alex Rivera,Alex,alex.rivera@example.com,approved,Standard,Independent,"Vancouver, BC",Yes,https://example.com/avatars/alex.jpg,,x
+gst_sample_002,Sam Chen,Sam,sam.chen@example.com,approved,Watch the Demos,Northwind Labs,"Victoria, BC",No,,,
+gst_sample_003,Jordan Lee,Jordan,jordan.lee@example.com,approved,Standard,,"Seattle, WA",Yes,,https://example.com/avatars/jordan.png,linkedin
+gst_sample_004,Casey Ng,Casey,casey.ng@example.com,pending,Standard,Acme Co,"Toronto, ON",Yes,,,

@@ -60,6 +60,46 @@ The worker loads the webhook signing secret from Luma automatically using `LUMA_
 
 See the [SDK webhook docs](https://alhwyn.mintlify.site/webhooks/create) for details.
 
+## Victoria “what to expect” email
+
+Personalized pre-event briefing for approved Cursor Codechella / Cursor Victoria guests. This path is **CLI-only** and does not change check-in webhook behavior (credits email still sends on `guest.updated` check-in).
+
+### Preview with the sample fixture
+
+```bash
+bun run expect-email -- fixtures/guests.sample.csv
+```
+
+Writes one HTML file per approved guest to `out/expect-email/<guest_id>.html` (gitignored). Open those files locally, or run `bun run dev` and inspect `cursor-victoria-expect-email` in the React Email preview at `http://localhost:3001`.
+
+### Point at a local Luma CSV
+
+```bash
+bun run expect-email -- /path/to/your-guests.csv --dry-run --limit 5
+```
+
+- Only `approval_status=approved` rows are included by default.
+- Survey columns like `Where are you based?` and `Are you traveling to Victoria, BC Canada for this?` are mapped automatically.
+- Optional avatar URL columns: `x_avatar_path`, `linkedin_avatar_path`, `avatar_url` (http(s) only; missing avatars fall back to an initial circle).
+- Edit placeholders in `src/event-config.ts` (event name, venue, date, Luma URL) before sending.
+
+### Dry-run vs send
+
+| Flag | Behavior |
+| --- | --- |
+| (default) | Render HTML previews only. Never sends. |
+| `--dry-run` | Print who would be emailed. Never sends (even with `--send`). |
+| `--send` | Send via Resend. Requires `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. |
+| `--limit N` | Cap how many approved guests to process. |
+
+Do not blast-send to real guests from a PR. Preview and `--dry-run` first. Never commit real guest CSVs, `data/`, `out/`, or scraped avatar dumps.
+
+### Tests
+
+```bash
+bun test
+```
+
 ## Migration notes
 
 ### `guest.registered` removed

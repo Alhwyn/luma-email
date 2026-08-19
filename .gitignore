@@ -6,6 +6,20 @@ out
 dist
 *.tgz
 
+# local guest data / avatar dumps (never commit real PII)
+data/
+data/**
+out/
+out/**
+.tmp-expect-email-test*/
+*.guests.csv
+guests.csv
+guests.*.csv
+!fixtures/guests.sample.csv
+avatars/
+avatar-dumps/
+**/scraped-avatars/
+
 # code coverage
 coverage
 *.lcov
