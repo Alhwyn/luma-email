@@ -5,7 +5,7 @@
     "": {
       "name": "luma-email",
       "dependencies": {
-        "@alhwyn/luma": "github:Alhwyn/luma",
+        "@alhwyn/luma": "file:./vendor/alhwyn-luma",
         "@react-email/components": "^1.0.12",
         "@react-email/ui": "^6.6.5",
         "react": "^19.0.0",
@@ -23,7 +23,7 @@
     },
   },
   "packages": {
-    "@alhwyn/luma": ["@alhwyn/luma@github:Alhwyn/luma#7774d23", {}, "Alhwyn-luma-7774d23", "sha512-QFbuYVIAmDfHC4q5Ezet4U+bEncwVXsZAgUfGrM73nIr7co/8jBZZx7yHT75e8BYEDnEvkzF4Y500ch9VU6bIw=="],
+    "@alhwyn/luma": ["@alhwyn/luma@file:vendor/alhwyn-luma", {}],
 
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
 

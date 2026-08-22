@@ -38,6 +38,8 @@ See `data/README.md`. The committed file only has fake sample entries — do not
 
 ### 1. Install dependencies
 
+[`@alhwyn/luma`](https://github.com/Alhwyn/luma) is **vendored** at `vendor/alhwyn-luma` (see `vendor/README.md`) so Vercel’s Bun typecheck can resolve it. Upstream `github:Alhwyn/luma` installs omit a built `dist/`, which breaks deploy with `Could not resolve '@alhwyn/luma'`.
+
 ```bash
 bun install
 ```

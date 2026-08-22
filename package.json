@@ -20,7 +20,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@alhwyn/luma": "github:Alhwyn/luma",
+    "@alhwyn/luma": "file:./vendor/alhwyn-luma",
     "@react-email/components": "^1.0.12",
     "@react-email/ui": "^6.6.5",
     "react": "^19.0.0",

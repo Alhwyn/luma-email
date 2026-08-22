@@ -47,7 +47,11 @@ async function resolveWebhookSecret(luma: Luma): Promise<string> {
 
   const active = webhooks.filter((webhook) => webhook.status === "active");
   if (active.length === 1) {
-    return active[0].secret;
+    const only = active[0];
+    if (!only) {
+      throw new Error("No active Luma webhooks found.");
+    }
+    return only.secret;
   }
 
   throw new Error(
