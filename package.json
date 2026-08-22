@@ -7,7 +7,9 @@
     "dev": "bun scripts/dev.ts",
     "start": "bun index.ts",
     "tunnel": "cloudflared tunnel run webhook-automator",
-    "register-webhook": "bun scripts/register-webhook.ts"
+    "register-webhook": "bun scripts/register-webhook.ts",
+    "sync-passports": "bun scripts/sync-passports.ts",
+    "test": "bun test"
   },
   "devDependencies": {
     "@clack/prompts": "^1.6.0",

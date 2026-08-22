@@ -1,0 +1,16 @@
+{
+  "alex.demo@example.com": {
+    "firstName": "Alex",
+    "lastName": "Demo",
+    "passportId": "00000000-0000-4000-8000-000000000001",
+    "passportUrl": "https://passport.cursorvictoria.com/00000000-0000-4000-8000-000000000001",
+    "cursorCode": "DEMOCODE123",
+    "cursorReferralUrl": "https://cursor.com/referral?code=DEMOCODE123"
+  },
+  "sam.sample@example.com": {
+    "firstName": "Sam",
+    "lastName": "Sample",
+    "passportId": "00000000-0000-4000-8000-000000000002",
+    "passportUrl": "https://passport.cursorvictoria.com/00000000-0000-4000-8000-000000000002"
+  }
+}
