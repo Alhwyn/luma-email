@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { getEmailAttachments } from "./email-template";
+import { getPassportEmailAttachments } from "./email-template";
 import { env } from "./env";
 
 let resend: Resend | undefined;
@@ -21,7 +21,7 @@ export async function sendEmail(params: {
     to: params.to,
     subject: params.subject,
     html: params.html,
-    attachments: await getEmailAttachments(),
+    attachments: await getPassportEmailAttachments(),
   });
 
   if (error) {

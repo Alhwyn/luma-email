@@ -1,9 +1,25 @@
 import type { UnwrappedWebhookEvent } from "@alhwyn/luma";
 import { sendEmail } from "./email";
-import { renderCursorCreditsEmailHtml } from "./email-template";
+import { renderCodechellaPassportEmailHtml } from "./email-template";
 import { env } from "./env";
+import { lookupPassportByEmail } from "./passports";
+import { FALLBACK_PASSPORT_URL } from "./shared-credits";
 
 type GuestUpdatedEvent = Extract<UnwrappedWebhookEvent, { type: "guest.updated" }>;
+
+function firstNameFromLuma(event: GuestUpdatedEvent): string {
+  const fromPayload = event.data.user_first_name?.trim();
+  if (fromPayload) {
+    return fromPayload;
+  }
+
+  const fullName = event.data.user_name?.trim();
+  if (fullName) {
+    return fullName.split(/\s+/)[0] ?? fullName;
+  }
+
+  return "there";
+}
 
 async function handleGuestUpdated(event: GuestUpdatedEvent): Promise<void> {
   if (event.data.event.id !== env.lumaEventId()) {
@@ -15,12 +31,20 @@ async function handleGuestUpdated(event: GuestUpdatedEvent): Promise<void> {
     return;
   }
 
-  const eventName = event.data.event.name;
+  const email = event.data.user_email;
+  const passport = lookupPassportByEmail(email);
+  const firstName = passport?.firstName?.trim() || firstNameFromLuma(event);
+  const passportUrl = passport?.passportUrl || FALLBACK_PASSPORT_URL;
 
   await sendEmail({
-    to: event.data.user_email,
-    subject: `Thanks for joining ${eventName} — here are your Cursor credits`,
-    html: await renderCursorCreditsEmailHtml({ eventName }),
+    to: email,
+    subject: "Your Codechella passport",
+    html: await renderCodechellaPassportEmailHtml({
+      firstName,
+      passportUrl,
+      cursorReferralUrl: passport?.cursorReferralUrl,
+      cursorCode: passport?.cursorCode,
+    }),
   });
 }
 
