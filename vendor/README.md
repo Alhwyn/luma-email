@@ -11,12 +11,8 @@ Could not resolve '@alhwyn/luma'
 Cannot find module '@alhwyn/luma'
 ```
 
-This vendor package points `main` / `types` / `exports` at `./src/index.ts`.
-
-To refresh from upstream:
+This vendor package points `types` / `bun` at `./src/index.ts` and builds `dist/` on `postinstall` so Node/`import` resolution also works on Vercel.
 
 ```bash
-bun pm cache rm
-# re-clone or copy src from a fresh github:Alhwyn/luma install into vendor/alhwyn-luma/src
-# keep this package.json exports pointing at src
+bun run --cwd vendor/alhwyn-luma build
 ```

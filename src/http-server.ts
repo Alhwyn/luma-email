@@ -1,13 +1,17 @@
-import { handleLumaEvent } from "./handle-event";
-import { verifyWebhook } from "./luma-webhook";
-
 export const httpRoutes = {
   "/health": {
-    GET: () => Response.json({ ok: true }),
+    // Keep this path free of Resend / email / Luma SDK imports.
+    GET: () => Response.json({ ok: true, service: "luma-email" }),
   },
   "/webhooks/luma": {
     POST: async (req: Request) => {
       try {
+        // Lazy-load so /health (and cold starts that only hit health) skip Resend.
+        const [{ verifyWebhook }, { handleLumaEvent }] = await Promise.all([
+          import("./luma-webhook"),
+          import("./handle-event"),
+        ]);
+
         const body = await req.text();
         const event = await verifyWebhook({
           body,
